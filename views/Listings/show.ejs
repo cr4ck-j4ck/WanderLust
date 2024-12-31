@@ -1,0 +1,108 @@
+<%- layout("Layouts/boilerplate.ejs"); %>
+<head>
+    <link rel="stylesheet" href="/CSS/starability.css">
+</head>
+    <div class="row col-12 mt-5 justify-content-center" style="padding-left: 1rem;">
+        <div class="col-sm-11 col-12">
+            <h2 id="heading" class="mb-3">
+                <%= list.title %>
+            </h2>
+            <div class="card" style="border: none;">
+                <img src="<%=list.image %>" class="card-img-top show-img" alt="listing_image">
+                <div class="card-body">
+                    <h4><em>Owned By :- <%= list.owner.username %></em></h4>
+                    <p class="card-text">
+                    <ul>
+                        <li class="desc">
+                            <%= list.description %>
+                        </li>
+                        <li>
+                            &#8377; <%= list.price ? list.price.toLocaleString("en-IN") : "Price Not available" ; %>
+                        </li>
+                        <li>
+                            <%= list.location %>
+                        </li>
+                        <li>
+                            <%= list.country %>
+                        </li>
+                    </ul>
+                    </p>
+                    <% if(currentUser && currentUser._id.equals(list.owner.id)) {%>
+                        <% } %>
+                            <div class="row">
+                                <a href="/listings/<%= list._id %>/edit"
+                                    class="btn add-btn col-3 col-lg-1 col-sm-2">Edit</a>
+                                <form action="/listings/<%= list._id %>?_method=DELETE" method="post"
+                                    class="col-sm-5 col-8">
+                                    <button class=" btn btn-dark">Delete Listing</button>
+                                </form>
+                            </div>
+                </div>
+            </div>
+            <hr>
+            <div class="mt-5 mb-5">
+                <h3>Leave a Review</h3>
+                <form action="/listings/<%=list.id%>/reviews" method="post" novalidate
+                    class="needs-validation mt-4 mb-3">
+
+                    <fieldset class="starability-slot">
+                        <h5>Rating:</h5>
+                        <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="0" checked
+                            aria-label="No rating." />
+                        <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+                        <label for="first-rate1" title="Terrible">1 star</label>
+                        <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+                        <label for="first-rate2" title="Not good">2 stars</label>
+                        <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+                        <label for="first-rate3" title="Average">3 stars</label>
+                        <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+                        <label for="first-rate4" title="Very good">4 stars</label>
+                        <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+                        <label for="first-rate5" title="Amazing">5 stars</label>
+                    </fieldset>
+
+                    <div>
+                        <label for="comment" class="form-label mt-4">Comments</label>
+                        <textarea name="reviews[comment]" id="comment" rows="7" class="form-control"
+                            placeholder="Leave your experience😊" required></textarea>
+
+                        <div class="invalid-feedback">
+                            Please Enter a Feedback.
+                        </div>
+
+                        <div class="valid-feedback">
+                            Feedback Looks Good.
+                        </div>
+                    </div>
+
+                    <button class="btn mt-4 add-btn">Submit</button>
+                </form>
+
+                <hr>
+
+                <h3 class="mt-4 mb-4">All reviews</h3>
+                <div class="row col-12 grid gap-3 offset-lg-1">
+                    <% for (review of list.reviews) { %>
+                        <div class="card mb-4 col-12 col-lg-5">
+                            <div class="card-body">
+                                <h4 class="card-title mb-4"><em> @<%= review.author.username %> </em></h4>
+                                <p class="card-text">
+                                    <%= review.comment %>
+                                </p>
+                                <p class="starability-result" data-rating="3">
+                                    Rated: 3 stars
+                                  </p>
+                                <p class="card-text">
+                                    <%= review.rating %>
+                                </p>
+                            </div>
+                            <form action="/listings/<%= list._id %>/reviews/<%= review._id %>?_method=DELETE"
+                                method="post">
+                                <button class="btn btn-dark m-2 mb-4"> Delete </button>
+                            </form>
+                        </div>
+                        <% } %>
+                </div>
+            </div>
+        </div>
+    </div>

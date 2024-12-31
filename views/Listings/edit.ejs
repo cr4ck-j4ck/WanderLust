@@ -1,0 +1,76 @@
+<%- layout("Layouts/boilerplate.ejs"); %>
+
+<div class="row mt-5">
+    <div class="col-8 offset-2">
+        <form method="post" action="/listings/<%= list._id %>?_method=PATCH" novalidate class="needs-validation">
+            <h1>Edit listings</h1>
+            <div class="mb-4">
+                <label for="title" class="form-label">Edit Title</label>
+                <input type="text" id="title" required class="form-control" name="listing[title]" placeholder="Enter your title" value="<%= list.title %>">
+                <div class="valid-feedback">
+                    Now Looks good
+                </div>
+                <div class="invalid-feedback">
+                    Please Enter a valid title!
+                </div>
+            </div>
+            
+            <div class="mb-4">
+                <label for="description" class="form-label">Edit Descirption</label>        
+                <textarea name="listing[description]" required class="form-control" id="description" placeholder="Enter the Descirption" cols="50" rows="10"><%= list.description %></textarea>
+                <div class="valid-feedback">
+                    Great
+                </div>
+                <div class="invalid-feedback">
+                    Enter Descirption of your listings
+                </div>
+            </div>
+            
+            <div class="mb-4">
+                <label for="url" class="form-label" >Edit URL</label>                
+                <input type="text" name="listing[image]" required class="form-control" id="url" placeholder="Enter URL of the image" value="<%= list.image %>">
+                <div class="invalid-feedback">
+                    Enter Image URL of your listings
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="mb-4 col-md-4">
+                    <label for="price" class="form-label">Edit Price</label>                
+                    <input type="number" name="listing[price]" required class="form-control" id="price" placeholder="Enter the Price" value="<%= list.price %>">
+                    <div class="valid-feedback">
+                        Good Price
+                    </div>
+                    <div class="invalid-feedback">
+                        Please Enter a valid Price!
+                    </div>
+                </div>
+                
+                <div class="mb-4 col-md-8">
+                    <label for="country" class="form-label">Edit Country</label>                        
+                    <input type="text" name="listing[country]" required class="form-control" id="country" placeholder="Enter the Country" value="<%= list.country %>">
+                    <div class="valid-feedback">
+                        Nice
+                    </div>
+                    <div class="invalid-feedback">
+                        Country should be Valid!
+                    </div>
+                </div>
+            </div>
+        
+            <div class="mb-4">
+                <label for="location" class="form-label">Edit location</label>                        
+                <input type="text" name="listing[location]" required class="form-control" id="location"  placeholder="Enter the location" value="<%= list.location %>">
+                <div class="valid-feedback">
+                    Now Looks good!
+                </div>
+                <div class="invalid-feedback">
+                    Please Enter a valid location!
+                </div>
+            </div>
+            
+            <br><br>
+            <button class="btn add-btn mb-5">Edit listing</button>
+        </form>
+    </div>
+</div>

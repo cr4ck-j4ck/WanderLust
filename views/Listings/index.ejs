@@ -1,0 +1,22 @@
+<%- layout("Layouts/boilerplate.ejs"); %>
+
+<h1 class="mt-5">All listings</h1>
+<div class="row row-cols-xl-4 row-cols-lg-3 row-cols-md-2 row-cols-sm-1 ">
+    <% for(list of allListings) { %>
+        <a href="/listings/<%= list._id%>" class="listing-link">
+            <div class="card card-hover col listing-card" style="margin: 0.7rem;">
+                <img src="<%= list.image %>" style="height: 15rem;" class="card-img-top" alt="listings Image">
+
+                <div class="card-body">
+                    <p class="card-text">
+                        <b>
+                            <%= list.title %>
+                        </b> <br>
+                        &#8377; <%= list.price ? list.price.toLocaleString("en-IN") : "Price Not available" ; %>
+                            / night
+                    </p>
+                </div>
+            </div>
+        </a>
+        <% } %>
+</div>
