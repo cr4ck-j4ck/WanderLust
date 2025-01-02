@@ -11,8 +11,12 @@ module.exports.renderAddForm = (req, res) => {
 }
 
 module.exports.createListings = async (req, res) => {
+    const { filename, path: url } = req.file;
     const listing = new Listing(req.body.listing);
     listing.owner = req.user;
+    listing.image = {
+        filename, url
+    }
     await listing.save();
     req.flash("success", "Listing added Successfully");
     res.redirect("/listings");
@@ -51,6 +55,16 @@ module.exports.showEditForm = async (req, res) => {
 
 module.exports.updateListings = async (req, res) => {
     const { id } = req.params;
+    const list = await Listing.findByIdAndUpdate(id,{...req.body.listing});
+    console.log(list);
+    if(req.file){
+        console.log(req.file);
+        const { filename , path: url} = req.file;
+        list.image = {
+            filename , url
+        }
+        await list.save();
+    }
     req.flash("success", "Listing updated successfully");
     res.redirect(`/listings/${id}`);
 }

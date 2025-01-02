@@ -1,14 +1,17 @@
 <%- layout("Layouts/boilerplate.ejs"); %>
-<head>
-    <link rel="stylesheet" href="/CSS/starability.css">
-</head>
+
+    <head>
+        <link rel="stylesheet" href="/CSS/starability.css">
+        <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet">
+        <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
+    </head>
     <div class="row col-12 mt-5 justify-content-center" style="padding-left: 1rem;">
         <div class="col-sm-11 col-12">
             <h2 id="heading" class="mb-3">
                 <%= list.title %>
             </h2>
             <div class="card" style="border: none;">
-                <img src="<%=list.image %>" class="card-img-top show-img" alt="listing_image">
+                <img src="<%= list.image.url %>" class="card-img-top show-img img-fluid" alt="listing_image">
                 <div class="card-body">
                     <h4><em>Owned By :- <%= list.owner.username %></em></h4>
                     <p class="card-text">
@@ -47,17 +50,17 @@
 
                     <fieldset class="starability-slot">
                         <h5>Rating:</h5>
-                        <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="0" checked
+                        <input type="radio" id="no-rate" class="input-no-rate" name="reviews[rating]" value="0" checked
                             aria-label="No rating." />
-                        <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+                        <input type="radio" id="first-rate1" name="reviews[rating]" value="1" />
                         <label for="first-rate1" title="Terrible">1 star</label>
-                        <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+                        <input type="radio" id="first-rate2" name="reviews[rating]" value="2" />
                         <label for="first-rate2" title="Not good">2 stars</label>
-                        <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+                        <input type="radio" id="first-rate3" name="reviews[rating]" value="3" />
                         <label for="first-rate3" title="Average">3 stars</label>
-                        <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+                        <input type="radio" id="first-rate4" name="reviews[rating]" value="4" />
                         <label for="first-rate4" title="Very good">4 stars</label>
-                        <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+                        <input type="radio" id="first-rate5" name="reviews[rating]" value="5" />
                         <label for="first-rate5" title="Amazing">5 stars</label>
                     </fieldset>
 
@@ -75,34 +78,34 @@
                         </div>
                     </div>
 
-                    <button class="btn mt-4 add-btn">Submit</button>
+                    <button class="btn mt-4 add-btn mb-4">Submit</button>
                 </form>
 
                 <hr>
-
-                <h3 class="mt-4 mb-4">All reviews</h3>
-                <div class="row col-12 grid gap-3 offset-lg-1">
-                    <% for (review of list.reviews) { %>
-                        <div class="card mb-4 col-12 col-lg-5">
-                            <div class="card-body">
-                                <h4 class="card-title mb-4"><em> @<%= review.author.username %> </em></h4>
-                                <p class="card-text">
-                                    <%= review.comment %>
-                                </p>
-                                <p class="starability-result" data-rating="3">
-                                    Rated: 3 stars
-                                  </p>
-                                <p class="card-text">
-                                    <%= review.rating %>
-                                </p>
+                <% if(list.reviews.length>0) { %>
+                    <h3 class="mt-4 mb-4">All reviews</h3>
+                    <div class="row col-12 grid gap-3 offset-lg-1">
+                        <% for (review of list.reviews) { %>
+                            <div class="card mb-4 col-12 col-lg-5">
+                                <div class="card-body">
+                                    <h4 class="card-title mb-4"><em> @<%= review.author.username %></em></h4>
+                                    <p class="card-text">
+                                        <%= review.comment %>
+                                    </p>
+                                    <p class="starability-result" data-rating="<%= review.rating%>">
+                                    </p>
+                                    <p class="card-text">
+                                        <%= review.rating %>
+                                    </p>
+                                </div>
+                                <form action="/listings/<%= list._id %>/reviews/<%= review._id %>?_method=DELETE"
+                                    method="post">
+                                    <button class="btn btn-dark m-2 mb-4"> Delete </button>
+                                </form>
                             </div>
-                            <form action="/listings/<%= list._id %>/reviews/<%= review._id %>?_method=DELETE"
-                                method="post">
-                                <button class="btn btn-dark m-2 mb-4"> Delete </button>
-                            </form>
-                        </div>
-                        <% } %>
-                </div>
+                            <% } %>
+                    </div>
+                    <% } %>
             </div>
         </div>
     </div>

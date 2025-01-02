@@ -2,7 +2,7 @@
 
 <div class="row mt-5">
     <div class="col-8 offset-2">
-        <form method="post" action="/listings/<%= list._id %>?_method=PATCH" novalidate class="needs-validation">
+        <form method="post" action="/listings/<%= list._id %>?_method=PATCH" novalidate class="needs-validation" enctype="multipart/form-data">
             <h1>Edit listings</h1>
             <div class="mb-4">
                 <label for="title" class="form-label">Edit Title</label>
@@ -26,9 +26,13 @@
                 </div>
             </div>
             
-            <div class="mb-4">
+            <div class="mb-3 mt-4">
+                <img src="<%= list.image.url.replace("/upload","/upload/h_230,w_350") %>" alt="LisitngImage">
+            </div>
+
+            <div class="mb-4">                
                 <label for="url" class="form-label" >Edit URL</label>                
-                <input type="text" name="listing[image]" required class="form-control" id="url" placeholder="Enter URL of the image" value="<%= list.image %>">
+                <input type="file" name="listing[image]" class="form-control" id="url" placeholder="Enter URL of the image">
                 <div class="invalid-feedback">
                     Enter Image URL of your listings
                 </div>
