@@ -29,7 +29,7 @@ const app = express();
 // Database setup
 async function connectToDB() {
     try {
-        await mongoose.connect('mongodb://127.0.0.1:27017/wanderlust');
+        await mongoose.connect('mongodb+srv://vermapratyush486:6268788553@cluster0.t3l7h.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0');
         console.log("DataBase Successfully Connected");
     } catch (e) {
         console.log(`Error Occurred : ${e}`);
