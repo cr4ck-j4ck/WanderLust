@@ -11,6 +11,8 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const cookieParser = require("cookie-parser");
 const dotenv = require("dotenv");
+const MongoStore = require('connect-mongo');
+
 
 
 
@@ -26,17 +28,19 @@ const userRoutes = require("./Routes/userRoutes.js");
 
 const app = express();
 
+const MongoDbUrl = "mongodb+srv://vermapratyush486:6268788553@cluster0.t3l7h.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+
 // Database setup
-async function connectToDB() {
+async function connectToDB(MongoDbUrl) {
     try {
-        await mongoose.connect('mongodb+srv://vermapratyush486:6268788553@cluster0.t3l7h.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0');
+        await mongoose.connect(MongoDbUrl);
         console.log("DataBase Successfully Connected");
     } catch (e) {
         console.log(`Error Occurred : ${e}`);
         process.exit(1);
     }
 }
-connectToDB();
+connectToDB(MongoDbUrl);
 
 
 // View engine setup
@@ -51,14 +55,27 @@ app.use(methodOverride("_method"));
 app.use(cookieParser());
 
 
+const store = MongoStore.create({
+    mongoUrl: MongoDbUrl,
+    crypto: {
+        secret: process.env.SECRET
+    },
+    touchAfter: 24 * 3600
+});
+
+store.on("error", (err) => {
+    console.log("Some error In atlas sesion", err);
+})
 
 // Session configuration
 const sessionConfig = {
-    secret: "BlaBlaHaiSecret",
+    store,
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: true,
     cookie: {
-        expires: Date.now() + 7 * 24 * 60 * 60 * 1000, // 7 days
+        expires: Date.now() + 7 * 24 * 60 * 60 * 1000, // 7 days,
+        maxAge: 7 * 24 * 60 * 60 * 1000,
         httpOnly: true
     }
 };
