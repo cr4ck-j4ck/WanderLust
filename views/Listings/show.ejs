@@ -31,15 +31,15 @@
                     </ul>
                     </p>
                     <% if(currentUser && currentUser._id.equals(list.owner.id)) {%>
+                        <div class="row">
+                            <a href="/listings/<%= list._id %>/edit"
+                                class="btn add-btn col-3 col-lg-1 col-sm-2">Edit</a>
+                            <form action="/listings/<%= list._id %>?_method=DELETE" method="post"
+                                class="col-sm-5 col-8">
+                                <button class=" btn btn-dark">Delete Listing</button>
+                            </form>
+                        </div>
                         <% } %>
-                            <div class="row">
-                                <a href="/listings/<%= list._id %>/edit"
-                                    class="btn add-btn col-3 col-lg-1 col-sm-2">Edit</a>
-                                <form action="/listings/<%= list._id %>?_method=DELETE" method="post"
-                                    class="col-sm-5 col-8">
-                                    <button class=" btn btn-dark">Delete Listing</button>
-                                </form>
-                            </div>
                 </div>
             </div>
             <hr>
