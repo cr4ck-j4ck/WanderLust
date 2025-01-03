@@ -87,8 +87,13 @@ body {
   font-size: 1.2rem;
 }
 
-.nav-collapse{
-  width: 100% !important;
-  margin: 0 !important;
-  background-color: pink !important;
+
+
+.navbar-collapse{
+  background-color: #ffa7ad !important;
+  padding-left: 2rem !important;
+  border-radius: 0px 0px 20px 20px;
+  padding-bottom: 1.4rem;
+  padding-top: 1rem;
+  font-size: 1.14rem;
 }
