@@ -13,9 +13,6 @@ const cookieParser = require("cookie-parser");
 const dotenv = require("dotenv");
 const MongoStore = require('connect-mongo');
 
-
-
-
 if (process.env.NODE_ENV != "production") {
     dotenv.config();
 }
@@ -28,7 +25,7 @@ const userRoutes = require("./Routes/userRoutes.js");
 
 const app = express();
 
-const MongoDbUrl = "mongodb+srv://vermapratyush486:6268788553@cluster0.t3l7h.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+console.log(process.env.MongoDbUrl);
 
 // Database setup
 async function connectToDB(MongoDbUrl) {
@@ -40,7 +37,7 @@ async function connectToDB(MongoDbUrl) {
         process.exit(1);
     }
 }
-connectToDB(MongoDbUrl);
+connectToDB(process.env.MongoDbUrl);
 
 
 // View engine setup
@@ -56,7 +53,7 @@ app.use(cookieParser());
 
 
 const store = MongoStore.create({
-    mongoUrl: MongoDbUrl,
+    mongoUrl: process.env.MongoDbUrl,
     crypto: {
         secret: process.env.SECRET
     },
