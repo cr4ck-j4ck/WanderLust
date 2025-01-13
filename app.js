@@ -25,7 +25,6 @@ const userRoutes = require("./Routes/userRoutes.js");
 
 const app = express();
 
-console.log(process.env.MongoDbUrl);
 
 // Database setup
 async function connectToDB(MongoDbUrl) {
