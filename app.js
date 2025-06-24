@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
-const session = require("express-session");             // Bhai Bhai bhai sign up route per direct response bhej direct URL se 
+const session = require("express-session");
 const flash = require("connect-flash");
 const ExpressError = require("./Utils/expressError.js");
 const User = require("./Model/user.js");
@@ -118,5 +118,3 @@ const PORT = 3000;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
-
-//hello claude arey Mein ko na ek doubt hai dekh jaise ki maine ke chij banayi hai ki koi user na create new listings wale page per gaya and login nahi hai toh woh login page per chale jaye and login hote hi direct fir create new listings per chale jaye that means jis page se login per redirect hua hai woh wapas usi page per chale jaye but ab dikkat yeh ho rahi hai ki manle koi use create new listings per gaya aur login page per redirect hote hi woh login na karne ki bajaye woh aise hi website ke dusre page per chale gaya lekin ab woh khud se jab login ke pag per jata hai and login hote hi woh na jab login na karne ki bajaye aur kahi  chale gaya tha toh woh mere code ne yaad rakhliya tha and use waps usi page per pohocha diya toh mein chahta hu ke esa na ho 

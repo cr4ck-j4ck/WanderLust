@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 const Lists = require("../Model/listing.js");
-
+require("dotenv").config();
 main().catch(err => console.log(err));
 
 async function main() {
-    await mongoose.connect('mongodb://127.0.0.1:27017/wanderlust');
+    await mongoose.connect(process.env.MongoDbUrl);
 }
 
 const sampleListings = [
